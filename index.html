@@ -44,6 +44,7 @@ nav a[aria-current="page"]{text-decoration:underline;font-weight:700}
 main{min-width:0}
 .selfie{display:block;width:min(16rem,60%);aspect-ratio:1/1;object-fit:cover;margin:0 0 2rem}
 .lead{font-size:1rem;line-height:1.6;max-width:36rem;margin:0 0 1.5rem;min-height:3em}
+#typed{white-space:pre-line}
 .cursor{display:inline-block;width:.6ch;height:1.05em;margin-left:2px;background:var(--ink);vertical-align:text-bottom;animation:blink 1s steps(1) infinite}
 .cursor.done{animation:none;opacity:0}
 @keyframes blink{50%{opacity:0}}
@@ -115,25 +116,25 @@ body.scrolling main img,body.scrolling .gwrap{cursor:none}
 <script>
 (function(){
   var L={
-    es:{self:"Autorretrato de Aitziber Orkolaga",lead:"Fotógrafa. Trabajo en series largas sobre el paisaje, la memoria y lo íntimo.",photo:"Foto de portada",pic:"Foto",bio:"Bio",contact:"Contacto",
+    es:{self:"Autorretrato de Aitziber Orkolaga",lead:"Fotógrafa. Trabajo en series largas sobre el paisaje,\nla memoria y lo íntimo.",photo:"Foto de portada",pic:"Foto",bio:"Bio",contact:"Contacto",
       titles:["Iñularre","Paulhe I","Plaketak"],pages:"páginas",soldout:"agotado",order:"Pedir el libro",
       work:"Texto breve sobre el trabajo: de qué trata y cuánto tiempo llevó.",
       b1:"Aitziber Orkolaga (Donostia, 1975) es fotógrafa. Trabaja en series largas sobre el paisaje, la memoria y lo íntimo.",
       b2:"Sus trabajos se han publicado en forma de libro.",
       cm:"Para pedidos, exposiciones o encargos, escribe a"},
-    eu:{self:"Aitziber Orkolagaren autoerretratua",lead:"Argazkilaria. Serie luzeetan egiten dut lan: paisaia, oroimena eta barru arteak.",photo:"Azaleko argazkia",pic:"Argazkia",bio:"Bio",contact:"Kontaktua",
+    eu:{self:"Aitziber Orkolagaren autoerretratua",lead:"Argazkilaria. Serie luzeetan egiten dut lan: paisaia,\noroimena eta barru arteak.",photo:"Azaleko argazkia",pic:"Argazkia",bio:"Bio",contact:"Kontaktua",
       titles:["Iñularre","Paulhe I","Plaketak"],pages:"orrialde",soldout:"agortuta",order:"Liburua eskatu",
       work:"Lanaren gaineko testu laburra: zeri buruzkoa den eta zenbat denbora behar izan zuen.",
       b1:"Aitziber Orkolaga (Donostia, 1975) argazkilaria da. Serie luzeetan egiten du lan: paisaia, oroimena eta barru arteak.",
       b2:"Bere lanak liburu moduan argitaratu dira.",
       cm:"Eskaerak, erakusketak edo enkarguak egiteko, idatzi hona:"},
-    en:{self:"Self-portrait of Aitziber Orkolaga",lead:"Photographer. I work on long series about landscape, memory and the inner world.",photo:"Cover photo",pic:"Photo",bio:"Bio",contact:"Contact",
+    en:{self:"Self-portrait of Aitziber Orkolaga",lead:"Photographer. I work on long series about landscape,\nmemory and the inner world.",photo:"Cover photo",pic:"Photo",bio:"Bio",contact:"Contact",
       titles:["Iñularre","Paulhe I","Plaketak"],pages:"pages",soldout:"sold out",order:"Order the book",
       work:"Short text about the work: what it is about and how long it took.",
       b1:"Aitziber Orkolaga (Donostia, 1975) is a photographer. She works on long series about landscape, memory and the inner world.",
       b2:"Her work has been published as books.",
       cm:"For orders, exhibitions or commissions, write to"},
-    fr:{self:"Autoportrait d’Aitziber Orkolaga",lead:"Photographe. Je travaille sur de longues séries autour du paysage, de la mémoire et de l’intime.",photo:"Photo de couverture",pic:"Photo",bio:"Bio",contact:"Contact",
+    fr:{self:"Autoportrait d’Aitziber Orkolaga",lead:"Photographe. Je travaille sur de longues séries autour du paysage,\nde la mémoire et de l’intime.",photo:"Photo de couverture",pic:"Photo",bio:"Bio",contact:"Contact",
       titles:["Iñularre","Paulhe I","Plaketak"],pages:"pages",soldout:"épuisé",order:"Commander le livre",
       work:"Court texte sur le travail : de quoi il parle et combien de temps il a pris.",
       b1:"Aitziber Orkolaga (Donostia, 1975) est photographe. Elle travaille sur de longues séries autour du paysage, de la mémoire et de l’intime.",
@@ -185,7 +186,7 @@ body.scrolling main img,body.scrolling .gwrap{cursor:none}
       html='<p class="lead" aria-label="'+t.lead+'"><span id="typed"></span><span class="cursor" id="cursor" aria-hidden="true"></span></p>'+
            '<div class="hero">'+[0].map(function(k){return '<div class="pair">'+HERO.slice(k,k+2).map(function(x){return '<img src="'+x.src+'" alt="'+x.alt[lang]+'">';}).join('')+'</div>';}).join('')+'</div>';
     }else if(h==="bio"){
-      html='<h2>'+t.bio+'</h2><div class="meta"></div><img class="selfie" src="autorretrato.webp" alt="'+t.self+'"><p>'+t.b1+'</p><p>'+t.b2+'</p><dl>'+works.map(function(w,i){return '<dt>'+w.year+'</dt><dd><a href="#'+w.id+'">'+t.titles[i]+'</a></dd>';}).join('')+'</dl>';
+      html='<h2>'+t.bio+'</h2><div class="meta"></div><img class="selfie" src="autorretrato.jpg" alt="'+t.self+'"><p>'+t.b1+'</p><p>'+t.b2+'</p><dl>'+works.map(function(w,i){return '<dt>'+w.year+'</dt><dd><a href="#'+w.id+'">'+t.titles[i]+'</a></dd>';}).join('')+'</dl>';
     }else if(h==="contacto"){
       html='<p><a class="mail" href="mailto:aorkolaga@gmail.com">aorkolaga@gmail.com</a></p><p><a href="https://www.instagram.com/orkolaga/" target="_blank" rel="noopener">Instagram</a></p>';
     }else{
