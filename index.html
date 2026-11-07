@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aitziber Orkolaga</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F5F5F3; --ink:#1B1B1A; --grey:#6E6E6A; --line:#CFCFCA; --ink-blue:#27358A;
+  --mono:"Courier Prime","Courier New",Courier,monospace;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--paper:#171716;--ink:#E9E9E5;--grey:#9A9A94;--line:#3A3A37;--ink-blue:#9DB0FF}
+}
+:root[data-theme="dark"]{--paper:#171716;--ink:#E9E9E5;--grey:#9A9A94;--line:#3A3A37;--ink-blue:#9DB0FF}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 1.0625rem/1.75 var(--mono);-webkit-font-smoothing:antialiased}
+a,button{color:inherit;font:inherit}
+a{text-decoration:underline;text-underline-offset:.25em;text-decoration-thickness:1px}
+a:hover,button:hover{color:var(--ink-blue)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--ink-blue);outline-offset:3px}
+.layout{max-width:100rem;margin:0 auto;padding:2rem 1.5rem 3rem;display:grid;grid-template-columns:1fr;gap:2.5rem}
+.side{display:flex;flex-direction:column;gap:1.5rem}
+.name{font-weight:700;font-size:1.25rem;text-decoration:none;line-height:1.3}
+nav{display:flex;flex-direction:row;flex-wrap:wrap;gap:.35rem 1.5rem}
+nav a{text-decoration:none}
+nav a:hover{text-decoration:underline}
+nav a[aria-current="page"]{text-decoration:underline;font-weight:700}
+.langs{display:flex;gap:1rem}
+.langs button{background:none;border:0;padding:0;cursor:pointer;color:var(--grey)}
+.langs button[aria-pressed="true"]{color:var(--ink);font-weight:700;text-decoration:underline;text-underline-offset:.25em}
+.copy{color:var(--grey);font-size:.9375rem;margin-top:auto}
+@media(min-width:900px){
+  .layout{grid-template-columns:14rem 1fr;gap:3rem;padding-top:3rem;min-height:100vh}
+  .side{position:sticky;top:3rem;align-self:start;min-height:calc(100vh - 6rem);gap:2rem}
+  nav{flex-direction:column;gap:.3rem}
+}
+main{min-width:0}
+.lead{font-size:clamp(1.125rem,2.2vw,1.4rem);line-height:1.5;max-width:36rem;margin:0 0 1.5rem;min-height:3em}
+.cursor{display:inline-block;width:.6ch;height:1.05em;margin-left:2px;background:var(--ink);vertical-align:text-bottom;animation:blink 1s steps(1) infinite}
+.cursor.done{animation:none;opacity:0}
+@keyframes blink{50%{opacity:0}}
+.ph{display:flex;align-items:flex-end;padding:1rem;border:1px solid var(--line);background:color-mix(in srgb,var(--ink) 5%,var(--paper));color:var(--grey);font-size:.875rem;object-fit:cover;width:100%}
+/* Para usar tus fotos: sustituye cada <div class="ph ..."> por <img class="ph ..." src="foto.jpg" alt="..."> */
+.hero{display:grid;grid-template-columns:1fr;gap:.75rem;max-width:max(20rem,calc((100vh - 12rem)*2))}
+.pair{display:grid;grid-template-columns:1fr 1fr}
+.pair img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover}
+h2{font-size:1.5rem;font-weight:700;margin:0 0 .25rem;line-height:1.35}
+.meta{color:var(--grey);font-size:.9375rem;margin-bottom:2rem}
+p{margin:0 0 1.25rem;max-width:36rem}
+dl{margin:2.5rem 0 0;display:grid;grid-template-columns:5rem 1fr;gap:.6rem 1rem;max-width:36rem}
+dt{color:var(--grey)}
+dd{margin:0}
+.grid{display:flex;gap:.75rem;overflow-x:auto;scroll-snap-type:x mandatory;margin:2rem 0;padding-bottom:.75rem;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+.grid:focus-visible{outline:2px solid var(--ink-blue);outline-offset:3px}
+.grid>*{min-width:0;flex:0 0 calc((100% - 1.5rem)/3);scroll-snap-align:start;aspect-ratio:2/3;height:auto;width:auto;max-width:none;object-fit:cover}
+@media(max-width:600px){.grid>*{flex-basis:calc((100% - .75rem)/2)}}
+.grid img{display:block;padding:0;border:0}
+.grid .wide,.grid .tall{aspect-ratio:2/3}
+.grid>.land{aspect-ratio:3/2;flex-basis:calc((100% - 1.5rem)/3*2.25)}
+@media(max-width:600px){.grid>.land{flex-basis:100%}}
+.grid>.pg{position:relative;aspect-ratio:var(--r,0.7577);flex-basis:calc((100% - 1.5rem)/3*1.5*var(--r,0.7577))}
+.pg img{position:absolute;display:block;object-fit:cover}
+@media(max-width:600px){.grid>.pg{flex-basis:calc((100% - .75rem)/2*1.5*var(--r,0.7577))}}
+@media(prefers-reduced-motion:reduce){.cursor{animation:none}}
+main img{cursor:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2232%22%20height%3D%2232%22%3E%3Cg%20fill%3D%22none%22%20stroke-linecap%3D%22square%22%3E%3Cpath%20d%3D%22M16%206v20M6%2016h20%22%20stroke%3D%22%23fff%22%20stroke-opacity%3D%22.7%22%20stroke-width%3D%223%22/%3E%3Cpath%20d%3D%22M16%206v20M6%2016h20%22%20stroke%3D%22%2327358A%22%20stroke-width%3D%221.25%22/%3E%3C/g%3E%3C/svg%3E") 16 16,zoom-in}
+body.scrolling main img,body.scrolling .gwrap{cursor:none}
+.gwrap{position:relative}
+.gwrap .grid{margin:0}
+.gwrap{margin:2rem 0}
+.arr{position:absolute;top:0;bottom:.75rem;width:4rem;display:flex;align-items:center;justify-content:center;background:none;border:0;padding:0;cursor:pointer;opacity:0;transition:opacity .2s;color:#fff;filter:drop-shadow(0 0 2px rgba(0,0,0,.55)) drop-shadow(0 0 6px rgba(0,0,0,.35))}
+.arr svg{width:2.5rem;height:1.1rem;stroke:currentColor;stroke-width:1.25;fill:none}
+.arr.l{left:0}.arr.r{right:0}
+.gwrap:hover .arr:not([hidden]),.gwrap.moving .arr:not([hidden]),.arr:focus-visible{opacity:1}
+.arr[hidden]{display:none}
+@media(hover:none){.arr{opacity:1}}
+.lb{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;background:var(--paper);padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+.lb.open{display:flex}
+.lb img{width:calc(100vw - 8rem);height:calc(100vh - 6rem);object-fit:contain;cursor:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2232%22%20height%3D%2232%22%3E%3Cg%20fill%3D%22none%22%20stroke-linecap%3D%22square%22%3E%3Cpath%20d%3D%22M9%209l14%2014M23%209L9%2023%22%20stroke%3D%22%23fff%22%20stroke-opacity%3D%22.7%22%20stroke-width%3D%223%22/%3E%3Cpath%20d%3D%22M9%209l14%2014M23%209L9%2023%22%20stroke%3D%22%2327358A%22%20stroke-width%3D%221.25%22/%3E%3C/g%3E%3C/svg%3E") 16 16,pointer;display:block}
+.lb button{position:absolute;background:none;border:0;padding:1rem;cursor:pointer;font-size:1.25rem;color:var(--ink)}
+.lb .x{top:.5rem;right:.75rem}
+.lb .prev{left:.5rem;top:50%;transform:translateY(-50%)}
+.lb .next{right:.5rem;top:50%;transform:translateY(-50%)}
+.lb .count{position:absolute;bottom:1rem;left:0;right:0;text-align:center;color:var(--grey);font-size:.875rem}
+@media(max-width:600px){.lb img{width:100vw;height:calc(100vh - 7rem)}.lb .prev,.lb .next{top:auto;bottom:.25rem;transform:none}}
+
+</style>
+</head>
+<body>
+<div class="layout">
+  <aside class="side">
+    <a class="name" href="#inicio">Aitziber Orkolaga</a>
+    <nav id="navWorks"></nav>
+    <nav id="navPages"></nav>
+    <div class="langs" id="langs" role="group" aria-label="Idioma / Hizkuntza / Language">
+      <button type="button" data-lang="eu">EU</button>
+      <button type="button" data-lang="en">EN</button>
+      <button type="button" data-lang="es">ES</button>
+      <button type="button" data-lang="fr">FR</button>
+    </div>
+    <div class="copy">© 2026</div>
+  </aside>
+  <main id="content"></main>
+</div>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Argazkia"><img id="lbImg" alt=""><button type="button" class="x" id="lbX" aria-label="Itxi / Close">✕</button><button type="button" class="prev" id="lbPrev" aria-label="Aurrekoa / Previous">←</button><button type="button" class="next" id="lbNext" aria-label="Hurrengoa / Next">→</button><div class="count" id="lbCount"></div></div>
+
+<script>
+(function(){
+  var L={
+    es:{lead:"Fotógrafa. Trabajo en series largas sobre el paisaje, la memoria y lo íntimo.",photo:"Foto de portada",pic:"Foto",bio:"Bio",contact:"Contacto",
+      titles:["Iñularre","Paulhe I","Plaketak"],pages:"páginas",soldout:"agotado",order:"Pedir el libro",
+      work:"Texto breve sobre el trabajo: de qué trata y cuánto tiempo llevó.",
+      b1:"Aitziber Orkolaga (Donostia, 1975) es fotógrafa. Trabaja en proyectos de largo recorrido sobre el paisaje, los oficios y la memoria cotidiana.",
+      b2:"Sus series se han publicado en libros y se han mostrado en exposiciones. Vive y trabaja entre Donostia y el campo.",
+      aw:["Premio de Fotolibro, Festival Ejemplo","Exposición individual, Galería Ejemplo","Beca de creación, Fundación Ejemplo"],
+      cm:"Para pedidos, exposiciones o encargos, escribe a"},
+    eu:{lead:"Argazkilaria. Serie luzeetan egiten dut lan: paisaia, oroimena eta barru arteak.",photo:"Azaleko argazkia",pic:"Argazkia",bio:"Bio",contact:"Kontaktua",
+      titles:["Iñularre","Paulhe I","Plaketak"],pages:"orrialde",soldout:"agortuta",order:"Liburua eskatu",
+      work:"Lanaren gaineko testu laburra: zeri buruzkoa den eta zenbat denbora behar izan zuen.",
+      b1:"Aitziber Orkolaga (Donostia, 1975) argazkilaria da. Paisaiaren, ofizioen eta eguneroko oroimenaren inguruko proiektu luzeetan egiten du lan.",
+      b2:"Bere serieak liburu moduan argitaratu dira eta erakusketetan erakutsi dira. Donostian eta landa eremuan bizi eta lan egiten du.",
+      aw:["Argazki-liburuaren saria, Adibide jaialdia","Banakako erakusketa, Adibide galeria","Sorkuntza beka, Adibide fundazioa"],
+      cm:"Eskaerak, erakusketak edo enkarguak egiteko, idatzi hona:"},
+    en:{lead:"Photographer. I work on long series about landscape, memory and the inner world.",photo:"Cover photo",pic:"Photo",bio:"Bio",contact:"Contact",
+      titles:["Iñularre","Paulhe I","Plaketak"],pages:"pages",soldout:"sold out",order:"Order the book",
+      work:"Short text about the work: what it is about and how long it took.",
+      b1:"Aitziber Orkolaga (Donostia, 1975) is a photographer. She works on long-term projects about landscape, trades and everyday memory.",
+      b2:"Her series have been published as books and shown in exhibitions. She lives and works between Donostia and the countryside.",
+      aw:["Photobook Award, Example Festival","Solo exhibition, Example Gallery","Creation grant, Example Foundation"],
+      cm:"For orders, exhibitions or commissions, write to"},
+    fr:{lead:"Photographe. Je travaille sur de longues séries autour du paysage, de la mémoire et de l’intime.",photo:"Photo de couverture",pic:"Photo",bio:"Bio",contact:"Contact",
+      titles:["Iñularre","Paulhe I","Plaketak"],pages:"pages",soldout:"épuisé",order:"Commander le livre",
+      work:"Court texte sur le travail : de quoi il parle et combien de temps il a pris.",
+      b1:"Aitziber Orkolaga (Donostia, 1975) est photographe. Elle travaille sur des projets au long cours autour du paysage, des métiers et de la mémoire quotidienne.",
+      b2:"Ses séries ont été publiées en livres et montrées lors d’expositions. Elle vit et travaille entre Donostia et la campagne.",
+      aw:["Prix du livre photo, Festival Exemple","Exposition personnelle, Galerie Exemple","Bourse de création, Fondation Exemple"],
+      cm:"Pour les commandes, expositions ou projets, écrivez à"}
+  };
+  var IMGS={"inularre":[{"src":"f01.webp","alt":{"es":"Figura encapuchada de perfil en la niebla, junto a unas ramas desenfocadas","eu":"Kapusadun irudi bat profilez, lainoan, adar lausoen ondoan","en":"Hooded figure in profile in the fog, beside blurred branches","fr":"Silhouette encapuchonnée de profil dans la brume, près de branches floues"}},{"src":"f02.webp","alt":{"es":"Dos árboles de ramas finas recortados contra un cielo con mucho grano","eu":"Adar mehedun bi zuhaitz, ale handiko zeruaren kontra","en":"Two trees with thin branches against a heavily grained sky","fr":"Deux arbres aux branches fines contre un ciel très granuleux"}},{"src":"f03.webp","alt":{"es":"Un árbol de ramas enredadas y retorcidas sobre un cielo con grano","eu":"Adar korapilatu eta bihurrituko zuhaitz bat, ale handiko zeruaren aurrean","en":"A tree with tangled, twisting branches against a grainy sky","fr":"Un arbre aux branches enchevêtrées et tordues contre un ciel granuleux"}},{"src":"f04.webp","alt":{"es":"Un caballo inclinando la cabeza hacia la cámara, con una mano apoyada sobre su cabeza","eu":"Zaldi bat burua kamerarantz makurtzen, esku bat buruan duela","en":"A horse tilting its head toward the camera, a hand resting on its head","fr":"Un cheval penchant la tête vers l’objectif, une main posée sur sa tête"}},{"src":"f05.webp","alt":{"es":"Crin de un caballo sobre un cielo claro, parte izquierda","eu":"Zaldi baten adatsa zeru argi baten aurrean, ezkerreko aldea","en":"A horse’s mane against a pale sky, left part","fr":"Crinière de cheval sur un ciel clair, partie gauche"}},{"src":"f06.webp","alt":{"es":"Crin de un caballo sobre un cielo claro, parte derecha","eu":"Zaldi baten adatsa zeru argi baten aurrean, eskuineko aldea","en":"A horse’s mane against a pale sky, right part","fr":"Crinière de cheval sur un ciel clair, partie droite"}},{"src":"f07.webp","alt":{"es":"Persona de espaldas, con sudadera negra, subiendo por un camino entre hierba y arbustos","eu":"Norbait atzetik, jertse beltz batekin, belar eta zuhaixken artean aldapan gora","en":"A person seen from behind in a black hoodie, walking uphill through grass and shrubs","fr":"Une personne vue de dos, en sweat noir, montant à travers l’herbe et les buissons"}},{"src":"f08.webp","alt":{"es":"Crin y oreja de un caballo contra un cielo nublado, parte izquierda","eu":"Zaldi baten adatsa eta belarria zeru hodeitsuaren aurrean, ezkerreko aldea","en":"A horse’s mane and ear against a cloudy sky, left part","fr":"Crinière et oreille de cheval sur un ciel nuageux, partie gauche"}},{"src":"f09.webp","alt":{"es":"Crin y oreja de un caballo contra un cielo nublado, parte derecha","eu":"Zaldi baten adatsa eta belarria zeru hodeitsuaren aurrean, eskuineko aldea","en":"A horse’s mane and ear against a cloudy sky, right part","fr":"Crinière et oreille de cheval sur un ciel nuageux, partie droite"}},{"src":"f10.webp","alt":{"es":"Figura de pelo largo entre rocas oscuras, frente al horizonte","eu":"Ile luzeko irudi bat haitz ilunen artean, horizontearen aurrean","en":"A long-haired figure among dark rocks, facing the horizon","fr":"Silhouette aux cheveux longs parmi des rochers sombres, face à l’horizon"}},{"src":"f11.webp","alt":{"es":"Figura oscura junto a un árbol de ramas retorcidas, en una noche con mucho grano","eu":"Irudi ilun bat adar bihurrituko zuhaitz baten ondoan, ale handiko gau batean","en":"A dark figure beside a tree with twisting branches, in a heavily grained night scene","fr":"Une silhouette sombre près d’un arbre aux branches tordues, dans une nuit très granuleuse"}},{"src":"f12.webp","alt":{"es":"Un árbol delgado y solitario con una pequeña copa, junto a follaje oscuro","eu":"Zuhaitz mehe eta bakartia, kopa txiki batekin, osto ilunen ondoan","en":"A thin, solitary tree with a small crown, beside dark foliage","fr":"Un arbre mince et solitaire à la petite cime, près d’un feuillage sombre"}}],"plaketak":[{"src":"f13.webp","land":true,"alt":{"es":"Árboles desenfocados en la niebla sobre una franja de tierra oscura","eu":"Zuhaitz lausoak lainoan, lur ilunezko zerrenda baten gainean","en":"Blurred trees in the fog above a dark strip of land","fr":"Arbres flous dans la brume au-dessus d’une bande de terre sombre"}},{"src":"f14.webp","land":true,"alt":{"es":"Dos árboles desenfocados en el horizonte, dentro de un rectángulo translúcido bajo un cielo nublado","eu":"Bi zuhaitz lauso horizontean, laukizuzen garden baten barruan, zeru hodeitsu baten azpian","en":"Two blurred trees on the horizon inside a translucent rectangle under a cloudy sky","fr":"Deux arbres flous à l’horizon dans un rectangle translucide sous un ciel nuageux"}},{"src":"f15.webp","land":true,"alt":{"es":"Un árbol desenfocado dentro del contorno de una casa dibujado con una línea fina y rectángulos translúcidos","eu":"Zuhaitz lauso bat, lerro mehe batez marraztutako etxe baten ingeradaren barruan, laukizuzen gardenekin","en":"A blurred tree inside the outline of a house drawn with a thin line and translucent rectangles","fr":"Un arbre flou dans le contour d’une maison tracé d’un trait fin, avec des rectangles translucides"}},{"src":"f16.webp","land":true,"alt":{"es":"Colina oscura con una fila de postes de valla, rectángulos translúcidos y una línea dibujada a mano con trazos cruzados","eu":"Muino iluna hesi-zutoin ilara batekin, laukizuzen gardenak eta eskuz marraztutako marra bat zeharkako trazuekin","en":"A dark hill with a row of fence posts, translucent rectangles and a hand-drawn line crossed by short strokes","fr":"Colline sombre avec une rangée de piquets de clôture, des rectangles translucides et une ligne tracée à la main barrée de petits traits"}},{"src":"f17.webp","land":true,"alt":{"es":"Playa nevada con figuras a lo lejos y puntos rojos que caen sobre la niebla","eu":"Hondartza elurtua, urrunean irudiak, eta lainoaren gainean erortzen diren puntu gorriak","en":"A snowy beach with distant figures and red dots falling over the fog","fr":"Plage enneigée avec des silhouettes au loin et des points rouges tombant sur la brume"}},{"src":"f18.webp","land":true,"alt":{"es":"Una forma oscura alargada dentro de rectángulos translúcidos, sobre un fondo claro con puntos rojos","eu":"Forma ilun luzanga bat laukizuzen gardenen barruan, puntu gorriz betetako hondo argi baten gainean","en":"An elongated dark shape inside translucent rectangles on a pale ground scattered with red dots","fr":"Une forme sombre allongée dans des rectangles translucides, sur un fond clair parsemé de points rouges"}},{"src":"f19.webp","land":true,"alt":{"es":"Una figura diminuta ante un rectángulo translúcido en un llano nevado, con puntos rojos en el cielo","eu":"Irudi txiki bat laukizuzen garden baten aurrean, lautada elurtu batean, zeruan puntu gorriak","en":"A tiny figure before a translucent rectangle on a snowy plain, red dots in the sky","fr":"Une minuscule silhouette devant un rectangle translucide dans une plaine enneigée, points rouges dans le ciel"}},{"src":"f20.webp","land":true,"alt":{"es":"Cuatro cables cruzando un cielo gris con copos de nieve desenfocados","eu":"Lau kable zeru gris bat zeharkatzen, elur maluta lausoekin","en":"Four wires crossing a grey sky with blurred snowflakes","fr":"Quatre câbles traversant un ciel gris avec des flocons flous"}},{"src":"f21.webp","land":true,"alt":{"es":"Pájaros en vuelo sobre un cielo gris con mucho grano","eu":"Hegan dabiltzan txoriak ale handiko zeru gris baten gainean","en":"Birds in flight against a heavily grained grey sky","fr":"Oiseaux en vol sur un ciel gris très granuleux"}},{"src":"f22.webp","land":true,"alt":{"es":"Un camino claro que cruza un monte oscuro en la niebla, atravesado por una franja vertical verdosa","eu":"Bide argi bat lainopeko mendi ilun bat zeharkatzen, zerrenda bertikal berdexka batek gurutzatuta","en":"A pale path crossing a dark hillside in fog, cut by a vertical greenish band","fr":"Un chemin clair traversant une colline sombre dans la brume, coupé par une bande verticale verdâtre"}}],"paulhe-i":[{"src":"pa01.webp","alt":{"es":"Una flor blanca sobre fondo negro","eu":"Lore zuri bat hondo beltzaren gainean","en":"A white flower on a black ground","fr":"Une fleur blanche sur fond noir"}},{"src":"pa02.webp","alt":{"es":"Racimo de flores claras sobre fondo negro, desenfocado","eu":"Lore argien multzoa hondo beltzaren gainean, lausotuta","en":"A blurred cluster of pale flowers on a black ground","fr":"Une grappe de fleurs claires floue sur fond noir"}},{"src":"pa03.webp","alt":{"es":"Un tallo fino y manchas oscuras sobre fondo blanco","eu":"Zurtoin mehe bat eta orban ilunak hondo zuriaren gainean","en":"A thin stem and dark spots on a white ground","fr":"Une tige fine et des taches sombres sur fond blanc"}},{"src":"pc01.webp","pg":{"x":6.05,"y":14.54,"w":67.68,"h":70.92,"r":0.7072},"alt":{"es":"Imagen médica de una columna cervical en tonos claros","eu":"Lepoko bizkarrezurraren irudi medikoa tonu argietan","en":"A medical image of a cervical spine in pale tones","fr":"Une image médicale d’une colonne cervicale en tons clairs"}},{"src":"pa04.webp","alt":{"es":"Huellas en la nieve que se alejan","eu":"Urruntzen diren aztarnak elurretan","en":"Footprints in the snow leading away","fr":"Des traces de pas dans la neige qui s’éloignent"}},{"src":"pb03.webp","pg":{"x":0,"y":0,"w":46.95,"h":52.61},"alt":{"es":"Nieve lisa sobre nieve removida","eu":"Elur leuna, elur nahasiaren gainean","en":"Smooth snow above churned snow","fr":"Neige lisse au-dessus d’une neige remuée"}},{"src":"pa05.webp","alt":{"es":"Nieve lisa sobre nieve removida","eu":"Elur leuna, elur nahasiaren gainean","en":"Smooth snow above churned snow","fr":"Neige lisse au-dessus d’une neige remuée"}},{"src":"pb04.webp","pg":{"x":14.01,"y":0,"w":85.99,"h":87.12},"alt":{"es":"Textura de nieve removida","eu":"Elur nahasiaren testura","en":"Texture of churned snow","fr":"Texture de neige remuée"}},{"src":"pc02.webp","pg":{"x":6.05,"y":40.13,"w":87.91,"h":49.02,"r":0.7072},"alt":{"es":"Imagen médica de una vértebra vista desde arriba","eu":"Goitik ikusitako orno baten irudi medikoa","en":"A medical image of a vertebra seen from above","fr":"Une image médicale d’une vertèbre vue du dessus"}},{"src":"pa06.webp","alt":{"es":"Un hueco oscuro en la nieve","eu":"Zulo ilun bat elurretan","en":"A dark hollow in the snow","fr":"Un creux sombre dans la neige"}},{"src":"pb05.webp","pg":{"x":2.12,"y":0,"w":89.41,"h":100},"alt":{"es":"Manchas claras sobre fondo negro","eu":"Orban argiak hondo beltzaren gainean","en":"Pale spots on a black ground","fr":"Des taches claires sur fond noir"}},{"src":"pa07.webp","alt":{"es":"Ladera nevada con vetas oscuras bajo la niebla","eu":"Mendi hegal elurtua zain ilunekin, lainopean","en":"A snowy slope with dark streaks under fog","fr":"Un versant enneigé strié de sombre sous la brume"}},{"src":"pa08.webp","alt":{"es":"Cresta nevada con manchas oscuras","eu":"Gailur elurtua orban ilunekin","en":"A snowy ridge with dark patches","fr":"Une crête enneigée avec des taches sombres"}},{"src":"pb06.webp","pg":{"x":8.52,"y":0,"w":89.36,"h":100},"alt":{"es":"Pétalos y manchas claras sobre fondo negro","eu":"Petaloak eta orban argiak hondo beltzaren gainean","en":"Petals and pale spots on a black ground","fr":"Des pétales et des taches claires sur fond noir"}},{"src":"pc03.webp","pg":{"x":6,"y":11.43,"w":81.71,"h":77.66,"r":0.7072},"alt":{"es":"Imagen médica de un pulmón en blanco y negro","eu":"Birika baten irudi medikoa zuri-beltzean","en":"A medical image of a lung in black and white","fr":"Une image médicale d’un poumon en noir et blanc"}},{"src":"pa09.webp","alt":{"es":"Roca agrietada con hielo y nieve","eu":"Harri arraildua izotz eta elurrarekin","en":"Cracked rock with ice and snow","fr":"Roche fissurée avec glace et neige"}},{"src":"pb01.webp","pg":{"x":0,"y":0,"w":47,"h":52.61},"alt":{"es":"Cima de una montaña con nieve bajo un cielo blanco","eu":"Mendi gailur elurtua zeru zuriaren azpian","en":"A snowy mountain summit under a white sky","fr":"Un sommet enneigé sous un ciel blanc"}},{"src":"pa10.webp","alt":{"es":"Cima de una montaña con nieve bajo un cielo blanco","eu":"Mendi gailur elurtua zeru zuriaren azpian","en":"A snowy mountain summit under a white sky","fr":"Un sommet enneigé sous un ciel blanc"}},{"src":"pa11.webp","alt":{"es":"Ladera de la montaña con vetas de nieve","eu":"Mendi hegala elur zainekin","en":"A mountainside streaked with snow","fr":"Un flanc de montagne strié de neige"}},{"src":"pb02.webp","pg":{"x":13.19,"y":0,"w":86.81,"h":87.12},"alt":{"es":"Ladera de montaña con nieve bajo un cielo nublado","eu":"Mendi hegala elurrarekin zeru hodeitsu baten azpian","en":"A mountainside with snow under a cloudy sky","fr":"Un flanc de montagne enneigé sous un ciel nuageux"}},{"src":"pc04.webp","pg":{"x":6.05,"y":11.43,"w":84.33,"h":77.73,"r":0.7072},"alt":{"es":"Imagen médica de la columna y la médula espinal","eu":"Bizkarrezurraren eta bizkarmuinaren irudi medikoa","en":"A medical image of the spine and spinal cord","fr":"Une image médicale de la colonne et de la moelle épinière"}},{"src":"pa12.webp","alt":{"es":"Superficie de roca con una grieta","eu":"Harri azala arrail batekin","en":"A rock surface with a crack","fr":"Une surface rocheuse avec une fissure"}},{"src":"pa13.webp","alt":{"es":"Piedras entre hielo y nieve","eu":"Harriak izotz eta elur artean","en":"Stones among ice and snow","fr":"Des pierres parmi la glace et la neige"}},{"src":"pa14.webp","alt":{"es":"Pétalos claros sobre fondo negro, parte izquierda","eu":"Petalo argiak hondo beltzaren gainean, ezkerreko aldea","en":"Pale petals on a black ground, left part","fr":"Pétales clairs sur fond noir, partie gauche"}},{"src":"pa15.webp","alt":{"es":"Un pequeño brote y pétalos sobre fondo negro, parte derecha","eu":"Kimu txiki bat eta petaloak hondo beltzaren gainean, eskuineko aldea","en":"A small sprout and petals on a black ground, right part","fr":"Une petite pousse et des pétales sur fond noir, partie droite"}}]};
+  var HERO=[{"src": "f23.webp", "alt": {"es": "Mancha oscura sobre una franja clara de borde ondulado", "eu": "Orban iluna, ertz uhindudun zerrenda argi baten gainean", "en": "A dark stain above a pale band with a wavy edge", "fr": "Une tache sombre au-dessus d’une bande claire au bord ondulé"}}, {"src": "f24.webp", "alt": {"es": "Franja oscura con forma de colina bajo un fondo claro", "eu": "Muino itxurako zerrenda iluna, hondo argi baten azpian", "en": "A dark hill-shaped band beneath a pale background", "fr": "Une bande sombre en forme de colline sous un fond clair"}}];
+  var DESC={"inularre": {"eu": ["Bidaia bat, argazki lapurtuak eta maitasuna.", "Argazki liburu hau ez da opor batzuen kronika geografiko bat, bizitakoaren lekuko intimoa baizik. Kamerak, subjetuak ohartu gabe, haien egia biluziak eta keinu zaurgarriak harrapatu zituen, espazioa babesleku bihurtuz. Isiltasun berean topo egiten duten bi izate primitibo eta basati.", "Irudi lapurtu hauen azpian ardatz isil bat dago: maitasun gutun bat, maitatzea, norbaitek nola begiratzen zaituen ikastea ere badelako."], "es": ["Un viaje, fotografías robadas y amor.", "Este libro de fotografía no es una crónica geográfica de unas vacaciones, sino un testigo íntimo de lo vivido. La cámara, sin que los sujetos se dieran cuenta, captó su verdad desnuda y sus gestos vulnerables, convirtiendo el espacio en refugio. Dos seres primitivos y salvajes que se encuentran en un mismo silencio.", "Bajo estas imágenes robadas hay un eje silencioso: una carta de amor, porque amar también es aprender cómo te mira alguien."], "en": ["A journey, stolen photographs and love.", "This photobook is not a geographical chronicle of a holiday, but an intimate witness to what was lived. The camera, without the subjects noticing, caught their naked truth and vulnerable gestures, turning the space into a refuge. Two primitive and wild beings who meet in the same silence.", "Beneath these stolen images lies a silent axis: a love letter, because loving is also learning how someone looks at you."], "fr": ["Un voyage, des photographies volées et de l’amour.", "Ce livre de photographies n’est pas une chronique géographique de vacances, mais un témoin intime de ce qui a été vécu. L’appareil, à l’insu des sujets, a saisi leur vérité nue et leurs gestes vulnérables, faisant de l’espace un refuge. Deux êtres primitifs et sauvages qui se rencontrent dans un même silence.", "Sous ces images volées se trouve un axe silencieux : une lettre d’amour, car aimer, c’est aussi apprendre comment quelqu’un te regarde."]}};
+  DESC["paulhe-i"]={"eu":["Deskriba al dezakegu mendia zientziaz eta arteaz, filosofiaz eta poesiaz, arrazoiz eta emozioz?"],"es":["¿Podemos describir la montaña con ciencia y arte, con filosofía y poesía, con razón y emoción?"],"en":["Can we describe the mountain with science and art, with philosophy and poetry, with reason and emotion?"],"fr":["Pouvons-nous décrire la montagne avec la science et l’art, la philosophie et la poésie, la raison et l’émotion ?"]};
+  DESC.plaketak={"eu": ["Erantzunen bilaketa da lan honen abiapuntua.", "Nola txukundu memoria? Nola eraiki gure oinak helduko dituen lurra? Nola babestu zauriak oroitzapenekiko sarbiderik ez dugunean? Memoria irudikatuz? Ukitu ezin ditugun oroitzapenak marraztuz agian?", "Helduleku izan nahi duen liburua."], "es": ["La búsqueda de respuestas es el punto de partida de este trabajo.", "¿Cómo ordenar la memoria? ¿Cómo construir una tierra que sostenga nuestros pies? ¿Cómo proteger las heridas cuando no tenemos acceso a los recuerdos? ¿Representando la memoria? ¿Dibujando, quizá, los recuerdos que no podemos tocar?", "Un libro que quiere ser un asidero."], "en": ["The search for answers is the starting point of this work.", "How can memory be put in order? How can we build ground that will hold our feet? How can we protect our wounds when we have no access to our memories? By picturing memory? Perhaps by drawing the memories we cannot touch?", "A book that wants to be something to hold on to."], "fr": ["La recherche de réponses est le point de départ de ce travail.", "Comment mettre de l’ordre dans la mémoire ? Comment bâtir une terre qui portera nos pieds ? Comment protéger les blessures lorsque nous n’avons pas accès aux souvenirs ? En représentant la mémoire ? En dessinant peut-être les souvenirs que nous ne pouvons pas toucher ?", "Un livre qui veut être un point d’appui."]};
+  var works=[
+    {id:"inularre",year:2026,pages:96,fmt:"24 × 30 cm",order:true,yearOnly:true},
+    {id:"paulhe-i",year:2025,pages:64,fmt:"21 × 27 cm",order:true,yearOnly:true},
+    {id:"plaketak",year:2020,pages:48,fmt:"18 × 24 cm",order:true,yearOnly:true}
+  ];
+  var views=["inicio","bio","contacto"].concat(works.map(function(w){return w.id;}));
+  var lang="eu",typedDone=false,typing=null;
+  try{var s=localStorage.getItem("lang");if(s&&L[s])lang=s;}catch(e){}
+
+  function current(){var h=(location.hash||"").slice(1);return views.indexOf(h)<0?"inicio":h;}
+
+  function buildNav(){
+    var t=L[lang],h=current();
+    function link(id,label){return '<a href="#'+id+'" data-view="'+id+'"'+(id===h?' aria-current="page"':'')+'>'+label+'</a>';}
+    document.getElementById("navWorks").innerHTML=works.map(function(w,i){return link(w.id,t.titles[i]);}).join("");
+    document.getElementById("navPages").innerHTML=link("bio",t.bio)+link("contacto",t.contact);
+    document.querySelectorAll("#langs button").forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-lang")===lang?"true":"false");});
+    document.documentElement.lang=lang;
+  }
+
+  function typeLead(text){
+    var out=document.getElementById("typed"),cur=document.getElementById("cursor");
+    if(!out)return;
+    if(typedDone||window.matchMedia("(prefers-reduced-motion: reduce)").matches){out.textContent=text;cur.className="cursor done";typedDone=true;return;}
+    typedDone=true;var i=0;
+    (function step(){
+      if(!document.getElementById("typed"))return;
+      document.getElementById("typed").textContent=text.slice(0,++i);
+      if(i<text.length){typing=setTimeout(step,45+Math.random()*60);}
+      else{typing=setTimeout(function(){var c=document.getElementById("cursor");if(c)c.className="cursor done";},1500);}
+    })();
+  }
+
+  function draw(){
+    var t=L[lang],h=current(),el=document.getElementById("content"),html="";
+    clearTimeout(typing);
+    if(h==="inicio"){
+      html='<p class="lead" aria-label="'+t.lead+'"><span id="typed"></span><span class="cursor" id="cursor" aria-hidden="true"></span></p>'+
+           '<div class="hero">'+[0].map(function(k){return '<div class="pair">'+HERO.slice(k,k+2).map(function(x){return '<img src="'+x.src+'" alt="'+x.alt[lang]+'">';}).join('')+'</div>';}).join('')+'</div>';
+    }else if(h==="bio"){
+      html='<h2>'+t.bio+'</h2><div class="meta"></div><p>'+t.b1+'</p><p>'+t.b2+'</p><dl><dt>2025</dt><dd>'+t.aw[0]+'</dd><dt>2024</dt><dd>'+t.aw[1]+'</dd><dt>2022</dt><dd>'+t.aw[2]+'</dd></dl>';
+    }else if(h==="contacto"){
+      html='<p><a class="mail" href="mailto:aorkolaga@gmail.com">aorkolaga@gmail.com</a></p><p><a href="https://www.instagram.com/orkolaga/" target="_blank" rel="noopener">Instagram</a></p>';
+    }else{
+      var i=views.indexOf(h)-3,w=works[i],title=t.titles[i],im=IMGS[w.id],first=im?'<img class="ph first'+(im[0].land?' land':'')+'" src="'+im[0].src+'" alt="'+im[0].alt[lang]+'">':'<div class="ph wide" aria-hidden="true">'+t.pic+'</div>';
+      var extra="",n=4,k,d=DESC[w.id]&&(DESC[w.id][lang]||DESC[w.id].eu),desc=d?'<p><strong>'+d[0]+'</strong></p>'+d.slice(1).map(function(x){return '<p>'+x+'</p>';}).join(''):'';
+      if(im){for(k=1;k<im.length;k++){var q=im[k].pg;extra+=q?'<div class="pg"'+(q.r?' style="--r:'+q.r+'"':'')+'><img loading="lazy" src="'+im[k].src+'" alt="'+im[k].alt[lang]+'" style="left:'+q.x+'%;top:'+q.y+'%;width:'+q.w+'%;height:'+q.h+'%"></div>':'<img loading="lazy" class="ph img'+(im[k].land?' land':'')+(im[k].half?' half':'')+'" src="'+im[k].src+'" alt="'+im[k].alt[lang]+'">';}n=Math.max(0,4-(im.length-1));}
+      for(k=0;k<n;k++){extra+='<div class="ph tall" aria-hidden="true"></div>';}
+      html='<h2>'+title+'</h2><div class="meta">'+(w.yearOnly?w.year:w.year+', '+w.pages+' '+t.pages+', '+w.fmt+(w.order?'':', '+t.soldout))+'</div>'+desc+
+           '<div class="gwrap"><div class="grid" role="region" tabindex="0" aria-label="'+title+'">'+first+extra+'</div><button type="button" class="arr l" aria-label="←"><svg viewBox="0 0 36 16"><path d="M35 8H1M8 1L1 8l7 7"/></svg></button><button type="button" class="arr r" aria-label="→"><svg viewBox="0 0 36 16"><path d="M1 8h34M28 1l7 7-7 7"/></svg></button></div>'+
+           (w.order?'<a class="order" target="_blank" rel="noopener" href="mailto:aitziber@puntu.eus?subject='+encodeURIComponent(title)+'">'+t.order+'</a>':'');
+    }
+    el.innerHTML=html;
+    if(h==="inicio")typeLead(t.lead);
+    var g=el.querySelector(".grid");if(g){var wr=g.parentNode,bl=wr.querySelector(".arr.l"),br=wr.querySelector(".arr.r"),mt=null;
+      function upd(){bl.hidden=g.scrollLeft<4;br.hidden=g.scrollLeft+g.clientWidth>=g.scrollWidth-4;}
+      function step(d){var it=g.firstElementChild;g.scrollBy({left:d*(it?it.getBoundingClientRect().width+12:g.clientWidth/3),behavior:"smooth"});}
+      bl.addEventListener("click",function(){step(-1);});br.addEventListener("click",function(){step(1);});
+      g.addEventListener("scroll",function(){upd();wr.classList.add("moving");clearTimeout(mt);mt=setTimeout(function(){wr.classList.remove("moving");},800);},{passive:true});
+      upd();}
+  }
+
+  function route(scroll){buildNav();draw();if(scroll)window.scrollTo(0,0);}
+
+  window.addEventListener("hashchange",function(){route(true);});
+  document.getElementById("langs").addEventListener("click",function(e){
+    var b=e.target.closest("button");if(!b)return;
+    lang=b.getAttribute("data-lang");
+    try{localStorage.setItem("lang",lang);}catch(err){}
+    route(false);
+  });
+  var lb=document.getElementById("lb"),lbImg=document.getElementById("lbImg"),set=[],cur=0,last=null;
+  function show(i){cur=(i+set.length)%set.length;lbImg.src=set[cur].src;lbImg.alt=set[cur].alt;document.getElementById("lbCount").textContent=(cur+1)+" / "+set.length;
+    var multi=set.length>1;document.getElementById("lbPrev").style.display=multi?"":"none";document.getElementById("lbNext").style.display=multi?"":"none";}
+  function openLb(img){var box=img.closest(".grid,.hero")||img.parentNode;set=[].slice.call(box.querySelectorAll("img"));last=img;lb.classList.add("open");document.body.style.overflow="hidden";show(set.indexOf(img));document.getElementById("lbX").focus();}
+  function closeLb(){lb.classList.remove("open");document.body.style.overflow="";lbImg.removeAttribute("src");if(last)last.focus&&last.focus();}
+  document.getElementById("content").addEventListener("click",function(e){var im=e.target.closest("img");if(im)openLb(im);});
+  document.getElementById("lbX").addEventListener("click",closeLb);
+  document.getElementById("lbPrev").addEventListener("click",function(e){e.stopPropagation();show(cur-1);});
+  document.getElementById("lbNext").addEventListener("click",function(e){e.stopPropagation();show(cur+1);});
+  lb.addEventListener("click",function(e){if(e.target===lb||e.target===lbImg)closeLb();});
+  document.addEventListener("keydown",function(e){if(!lb.classList.contains("open"))return;if(e.key==="Escape")closeLb();else if(e.key==="ArrowLeft")show(cur-1);else if(e.key==="ArrowRight")show(cur+1);});
+  var tx=null;lb.addEventListener("touchstart",function(e){tx=e.touches[0].clientX;},{passive:true});
+  lb.addEventListener("touchend",function(e){if(tx===null)return;var d=e.changedTouches[0].clientX-tx;tx=null;if(Math.abs(d)>50&&set.length>1){e.preventDefault();show(cur+(d<0?1:-1));}});
+  window.addEventListener("hashchange",function(){if(lb.classList.contains("open"))closeLb();});
+  var st=null;document.addEventListener("scroll",function(){document.body.classList.add("scrolling");clearTimeout(st);st=setTimeout(function(){document.body.classList.remove("scrolling");},250);},{capture:true,passive:true});
+  document.addEventListener("wheel",function(){document.body.classList.add("scrolling");clearTimeout(st);st=setTimeout(function(){document.body.classList.remove("scrolling");},250);},{passive:true});
+  route(false);
+})();
+</script>
+</body>
+</html>
