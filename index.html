@@ -50,8 +50,14 @@ main{min-width:0}
 .ig{position:fixed;right:1.25rem;bottom:calc(1.25rem + env(safe-area-inset-bottom,0px));z-index:40;width:2.75rem;height:2.75rem;border:1px solid var(--ink);border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:.85rem;background:var(--paper)}
 .ig:hover{color:var(--ink-blue);border-color:var(--ink-blue)}
 .bookvid{display:block;width:100%;max-width:calc((100vh - 8rem)*1.75);margin:2rem 0 0;background:#000}
-.bookvid.closed,.vcap.closed{display:none}
-.vcap{color:var(--grey);font-size:.9375rem;margin:.5rem 0 0}
+.vcap{color:var(--grey);font-size:.9375rem;margin:.6rem 0 0}
+.vlink{background:none;border:0;padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:.25em;text-decoration-thickness:1px}
+.links{margin:1.5rem 0 0}
+.vlb{position:fixed;inset:0;z-index:55;display:none;align-items:center;justify-content:center;background:var(--paper);padding:3rem 1rem}
+.vlb.open{display:flex}
+.vbox{width:min(100%,calc((100vh - 9rem)*1.78))}
+.vbox video{display:block;width:100%;background:#000}
+.vlb .x{position:absolute;top:.5rem;right:.75rem;background:none;border:0;padding:1rem;cursor:pointer;font-size:1.25rem;color:var(--ink)}
 .selfie{display:block;width:min(16rem,60%);aspect-ratio:1/1;object-fit:cover;margin:0 0 2rem}
 .lead{font-size:1rem;line-height:1.6;max-width:36rem;margin:0 0 1.5rem;min-height:3em}
 #typed{white-space:pre-line}
@@ -123,30 +129,31 @@ body.scrolling main img,body.scrolling .gwrap{cursor:none}
 </div>
 
 <a class="ig" href="https://www.instagram.com/orkolaga/" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
+<div class="vlb" id="vlb" role="dialog" aria-modal="true" aria-label="Video"><div class="vbox"><video id="vlbV" controls playsinline preload="none"></video><p class="vcap" id="vlbC"></p></div><button type="button" class="x" id="vlbX" aria-label="Itxi / Close">✕</button></div>
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Argazkia"><img id="lbImg" alt=""><button type="button" class="x" id="lbX" aria-label="Itxi / Close">✕</button><button type="button" class="prev" id="lbPrev" aria-label="Aurrekoa / Previous">←</button><button type="button" class="next" id="lbNext" aria-label="Hurrengoa / Next">→</button><div class="count" id="lbCount"></div></div>
 
 <script>
 (function(){
   var L={
-    es:{view:"Ver las fotos",self:"Autorretrato de Aitziber Orkolaga",lead:"Fotógrafa. Trabajo en series largas sobre el paisaje,\nla memoria y lo íntimo.",photo:"Foto de portada",pic:"Foto",bio:"Bio",contact:"Contacto",
+    es:{vid:"Ver el vídeo",view:"Ver las fotos",self:"Autorretrato de Aitziber Orkolaga",lead:"Fotógrafa. Trabajo en series largas sobre el paisaje,\nla memoria y lo íntimo.",photo:"Foto de portada",pic:"Foto",bio:"Bio",contact:"Contacto",
       titles:["Iñularre","Paulhe I","HIRU (3)","Plaketak"],pages:"páginas",soldout:"agotado",order:"Pedir el libro",
       work:"Texto breve sobre el trabajo: de qué trata y cuánto tiempo llevó.",
       b1:"Soy Aitziber Orkolaga, fotógrafa nacida en Donostia en 1975. Trabajo en series largas sobre el paisaje, la memoria y lo íntimo.",
       b3:"Me he formado en cursos y talleres, empezando en Txondorra (Donostia) con Nagore Legarreta y siguiendo con Juanan Requena. Después he realizado talleres de fotografía y encuadernación en Lababuch (Francia) con Clara Gasull, Chiara Capodici, Israel Ariño, Juanjo Justicia y Raymond Meeks. En 2025 participé en los talleres de Valentino Barachini en el Museo San Telmo de Donostia y en Livorno (Italia).",b2:"En 2019 gané el BAFFEST con Plaketak. He expuesto en Bera, Oñati y Donostia. Publico mis trabajos en forma de libro, que encuaderno a mano.",
       cm:"Para pedidos, exposiciones o encargos, escribe a"},
-    eu:{view:"Argazkiak ikusi",self:"Aitziber Orkolagaren autoerretratua",lead:"Argazkilaria. Serie luzeetan egiten dut lan: paisaia,\noroimena eta barru arteak.",photo:"Azaleko argazkia",pic:"Argazkia",bio:"Bio",contact:"Kontaktua",
+    eu:{vid:"Bideoa ikusi",view:"Argazkiak ikusi",self:"Aitziber Orkolagaren autoerretratua",lead:"Argazkilaria. Serie luzeetan egiten dut lan: paisaia,\noroimena eta barru arteak.",photo:"Azaleko argazkia",pic:"Argazkia",bio:"Bio",contact:"Kontaktua",
       titles:["Iñularre","Paulhe I","HIRU (3)","Plaketak"],pages:"orrialde",soldout:"agortuta",order:"Liburua eskatu",
       work:"Lanaren gaineko testu laburra: zeri buruzkoa den eta zenbat denbora behar izan zuen.",
       b1:"Aitziber Orkolaga naiz (Donostia, 1975), argazkilaria. Serie luzeetan egiten dut lan: paisaia, oroimena eta barru arteak.",
       b3:"Donostiako Txondorran hasi nintzen argazkigintzan, Nagore Legarretarekin, eta ondoren Juanan Requenarekin jarraitu nuen. Geroztik, Lababuchen (Frantzia) egin ditut argazki eta koadernaketa lantegiak Clara Gasull, Chiara Capodici, Israel Ariño, Juanjo Justicia eta Raymond Meeksekin. 2025ean, Valentino Barachiniren lantegietan parte hartu nuen Donostiako San Telmo museoan eta Livornon (Italia).",b2:"Plaketak lanarekin BAFFEST 2019 saria irabazi nuen. Beran, Oñatin eta Donostian egin ditut erakusketak. Nire lanak liburu moduan argitaratzen ditut, nik neuk eskuz koadernatuta.",
       cm:"Eskaerak, erakusketak edo enkarguak egiteko, idatzi hona:"},
-    en:{view:"View photos",self:"Self-portrait of Aitziber Orkolaga",lead:"Photographer. I work on long series about landscape,\nmemory and the inner world.",photo:"Cover photo",pic:"Photo",bio:"Bio",contact:"Contact",
+    en:{vid:"Watch the video",view:"View photos",self:"Self-portrait of Aitziber Orkolaga",lead:"Photographer. I work on long series about landscape,\nmemory and the inner world.",photo:"Cover photo",pic:"Photo",bio:"Bio",contact:"Contact",
       titles:["Iñularre","Paulhe I","HIRU (3)","Plaketak"],pages:"pages",soldout:"sold out",order:"Order the book",
       work:"Short text about the work: what it is about and how long it took.",
       b1:"I am Aitziber Orkolaga, a photographer born in Donostia in 1975. I work on long series about landscape, memory and the inner world.",
       b3:"I trained through courses and workshops, starting at Txondorra (Donostia) with Nagore Legarreta and continuing with Juanan Requena. I have since taken photography and bookbinding workshops at Lababuch (France) with Clara Gasull, Chiara Capodici, Israel Ariño, Juanjo Justicia and Raymond Meeks. In 2025 I took part in Valentino Barachini’s workshops at the San Telmo Museum in Donostia and in Livorno (Italy).",b2:"In 2019 I won BAFFEST with Plaketak. I have exhibited in Bera, Oñati and Donostia. I publish my work as books, which I bind by hand.",
       cm:"For orders, exhibitions or commissions, write to"},
-    fr:{view:"Voir les photos",self:"Autoportrait d’Aitziber Orkolaga",lead:"Photographe. Je travaille sur de longues séries autour du paysage,\nde la mémoire et de l’intime.",photo:"Photo de couverture",pic:"Photo",bio:"Bio",contact:"Contact",
+    fr:{vid:"Voir la vidéo",view:"Voir les photos",self:"Autoportrait d’Aitziber Orkolaga",lead:"Photographe. Je travaille sur de longues séries autour du paysage,\nde la mémoire et de l’intime.",photo:"Photo de couverture",pic:"Photo",bio:"Bio",contact:"Contact",
       titles:["Iñularre","Paulhe I","HIRU (3)","Plaketak"],pages:"pages",soldout:"épuisé",order:"Commander le livre",
       work:"Court texte sur le travail : de quoi il parle et combien de temps il a pris.",
       b1:"Je suis Aitziber Orkolaga, photographe née à Donostia en 1975. Je travaille sur de longues séries autour du paysage, de la mémoire et de l’intime.",
@@ -211,7 +218,7 @@ body.scrolling main img,body.scrolling .gwrap{cursor:none}
       for(k=0;k<n;k++){extra+='<div class="ph tall" aria-hidden="true"></div>';}
       html='<h2>'+title+'</h2><div class="meta">'+(w.yearOnly?w.year:w.year+', '+w.pages+' '+t.pages+', '+w.fmt+(w.order?'':', '+t.soldout))+(SPECS[w.id]?'<br>'+SPECS[w.id][lang].join('<br>'):'')+'</div>'+desc+
            (im?'<button type="button" class="cover"><img src="'+(w.coverImg||im[w.cover||0]).src+'" alt="'+(w.coverImg||im[w.cover||0]).alt[lang]+'"><span class="cv">'+t.view+' ('+im.length+') →</span></button>':'')+'<div class="gwrap'+(im?' closed':'')+'"><div class="grid" role="region" tabindex="0" aria-label="'+title+'">'+first+extra+'</div><button type="button" class="arr l" aria-label="←"><svg viewBox="0 0 36 16"><path d="M35 8H1M8 1L1 8l7 7"/></svg></button><button type="button" class="arr r" aria-label="→"><svg viewBox="0 0 36 16"><path d="M1 8h34M28 1l7 7-7 7"/></svg></button></div>'+
-           (w.video?'<video class="bookvid'+(im?' closed':'')+'" src="'+w.video+'" poster="'+w.poster+'" playsinline controls preload="metadata"></video>':'')+(w.vcap?'<p class="vcap'+(im?' closed':'')+'">'+w.vcap[lang]+'</p>':'')+(w.order?'<a class="order" target="_blank" rel="noopener" href="mailto:aitziber@puntu.eus?subject='+encodeURIComponent(title)+'">'+t.order+'</a>':'');
+           (w.video?'<p class="links"><button type="button" class="vlink">'+t.vid+' ▶</button></p>':'')+(w.order?'<a class="order" target="_blank" rel="noopener" href="mailto:aitziber@puntu.eus?subject='+encodeURIComponent(title)+'">'+t.order+'</a>':'');
     }
     el.innerHTML=html;
     if(h==="inicio")typeLead(t.lead);
@@ -220,7 +227,7 @@ body.scrolling main img,body.scrolling .gwrap{cursor:none}
       function step(d){var it=g.firstElementChild;g.scrollBy({left:d*(it?it.getBoundingClientRect().width+12:g.clientWidth/3),behavior:"smooth"});}
       bl.addEventListener("click",function(){step(-1);});br.addEventListener("click",function(){step(1);});
       g.addEventListener("scroll",function(){upd();wr.classList.add("moving");clearTimeout(mt);mt=setTimeout(function(){wr.classList.remove("moving");},800);},{passive:true});
-      upd();var cv=el.querySelector('.cover');if(cv)cv.addEventListener('click',function(){cv.hidden=true;wr.classList.remove('closed');var bv=el.querySelector('.bookvid');if(bv)bv.classList.remove('closed');var vc=el.querySelector('.vcap');if(vc)vc.classList.remove('closed');g.scrollLeft=0;upd();try{wr.scrollIntoView({block:'nearest'});}catch(x){}});}
+      upd();var cv=el.querySelector('.cover');if(cv)cv.addEventListener('click',function(){cv.hidden=true;wr.classList.remove('closed');g.scrollLeft=0;upd();try{wr.scrollIntoView({block:'nearest'});}catch(x){}});}
   }
 
   function route(scroll){buildNav();draw();if(scroll)window.scrollTo(0,0);}
@@ -246,6 +253,14 @@ body.scrolling main img,body.scrolling .gwrap{cursor:none}
   var tx=null;lb.addEventListener("touchstart",function(e){tx=e.touches[0].clientX;},{passive:true});
   lb.addEventListener("touchend",function(e){if(tx===null)return;var d=e.changedTouches[0].clientX-tx;tx=null;if(Math.abs(d)>50&&set.length>1){e.preventDefault();show(cur+(d<0?1:-1));}});
   window.addEventListener("hashchange",function(){if(lb.classList.contains("open"))closeLb();});
+  var vlb=document.getElementById("vlb"),vlbV=document.getElementById("vlbV");
+  function closeV(){vlb.classList.remove("open");document.body.style.overflow="";try{vlbV.pause();}catch(x){}vlbV.removeAttribute("src");vlbV.load();}
+  document.getElementById("content").addEventListener("click",function(e){if(!e.target.closest(".vlink"))return;var w=works[views.indexOf(current())-3];if(!w||!w.video)return;
+    vlbV.src=w.video;vlbV.poster=w.poster||"";document.getElementById("vlbC").textContent=w.vcap?w.vcap[lang]:"";vlb.classList.add("open");document.body.style.overflow="hidden";var pr=vlbV.play();if(pr&&pr.catch)pr.catch(function(){});document.getElementById("vlbX").focus();});
+  document.getElementById("vlbX").addEventListener("click",closeV);
+  vlb.addEventListener("click",function(e){if(e.target===vlb)closeV();});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape"&&vlb.classList.contains("open"))closeV();});
+  window.addEventListener("hashchange",function(){if(vlb.classList.contains("open"))closeV();});
   var st=null;document.addEventListener("scroll",function(){document.body.classList.add("scrolling");clearTimeout(st);st=setTimeout(function(){document.body.classList.remove("scrolling");},250);},{capture:true,passive:true});
   document.addEventListener("wheel",function(){document.body.classList.add("scrolling");clearTimeout(st);st=setTimeout(function(){document.body.classList.remove("scrolling");},250);},{passive:true});
   route(false);
