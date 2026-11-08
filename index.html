@@ -42,6 +42,11 @@ nav a[aria-current="page"]{text-decoration:underline;font-weight:700}
   nav{flex-direction:column;gap:.3rem}
 }
 main{min-width:0}
+.gwrap.closed,.cover[hidden]{display:none}
+.cover{display:block;background:none;border:0;padding:0;margin:2rem 0;text-align:left;color:var(--grey);cursor:pointer}
+.cover img{display:block;max-width:100%;max-height:72vh;width:auto;height:auto}
+.cv{display:block;margin-top:.75rem}
+.cover:hover .cv,.cover:focus-visible .cv{color:var(--ink-blue)}
 .selfie{display:block;width:min(16rem,60%);aspect-ratio:1/1;object-fit:cover;margin:0 0 2rem}
 .lead{font-size:1rem;line-height:1.6;max-width:36rem;margin:0 0 1.5rem;min-height:3em}
 #typed{white-space:pre-line}
@@ -116,25 +121,25 @@ body.scrolling main img,body.scrolling .gwrap{cursor:none}
 <script>
 (function(){
   var L={
-    es:{self:"Autorretrato de Aitziber Orkolaga",lead:"Fotógrafa. Trabajo en series largas sobre el paisaje,\nla memoria y lo íntimo.",photo:"Foto de portada",pic:"Foto",bio:"Bio",contact:"Contacto",
+    es:{view:"Ver las fotos",self:"Autorretrato de Aitziber Orkolaga",lead:"Fotógrafa. Trabajo en series largas sobre el paisaje,\nla memoria y lo íntimo.",photo:"Foto de portada",pic:"Foto",bio:"Bio",contact:"Contacto",
       titles:["Iñularre","Paulhe I","Plaketak"],pages:"páginas",soldout:"agotado",order:"Pedir el libro",
       work:"Texto breve sobre el trabajo: de qué trata y cuánto tiempo llevó.",
       b1:"Aitziber Orkolaga (Donostia, 1975) es fotógrafa. Trabaja en series largas sobre el paisaje, la memoria y lo íntimo.",
       b2:"Sus trabajos se han publicado en forma de libro.",
       cm:"Para pedidos, exposiciones o encargos, escribe a"},
-    eu:{self:"Aitziber Orkolagaren autoerretratua",lead:"Argazkilaria. Serie luzeetan egiten dut lan: paisaia,\noroimena eta barru arteak.",photo:"Azaleko argazkia",pic:"Argazkia",bio:"Bio",contact:"Kontaktua",
+    eu:{view:"Argazkiak ikusi",self:"Aitziber Orkolagaren autoerretratua",lead:"Argazkilaria. Serie luzeetan egiten dut lan: paisaia,\noroimena eta barru arteak.",photo:"Azaleko argazkia",pic:"Argazkia",bio:"Bio",contact:"Kontaktua",
       titles:["Iñularre","Paulhe I","Plaketak"],pages:"orrialde",soldout:"agortuta",order:"Liburua eskatu",
       work:"Lanaren gaineko testu laburra: zeri buruzkoa den eta zenbat denbora behar izan zuen.",
       b1:"Aitziber Orkolaga (Donostia, 1975) argazkilaria da. Serie luzeetan egiten du lan: paisaia, oroimena eta barru arteak.",
       b2:"Bere lanak liburu moduan argitaratu dira.",
       cm:"Eskaerak, erakusketak edo enkarguak egiteko, idatzi hona:"},
-    en:{self:"Self-portrait of Aitziber Orkolaga",lead:"Photographer. I work on long series about landscape,\nmemory and the inner world.",photo:"Cover photo",pic:"Photo",bio:"Bio",contact:"Contact",
+    en:{view:"View photos",self:"Self-portrait of Aitziber Orkolaga",lead:"Photographer. I work on long series about landscape,\nmemory and the inner world.",photo:"Cover photo",pic:"Photo",bio:"Bio",contact:"Contact",
       titles:["Iñularre","Paulhe I","Plaketak"],pages:"pages",soldout:"sold out",order:"Order the book",
       work:"Short text about the work: what it is about and how long it took.",
       b1:"Aitziber Orkolaga (Donostia, 1975) is a photographer. She works on long series about landscape, memory and the inner world.",
       b2:"Her work has been published as books.",
       cm:"For orders, exhibitions or commissions, write to"},
-    fr:{self:"Autoportrait d’Aitziber Orkolaga",lead:"Photographe. Je travaille sur de longues séries autour du paysage,\nde la mémoire et de l’intime.",photo:"Photo de couverture",pic:"Photo",bio:"Bio",contact:"Contact",
+    fr:{view:"Voir les photos",self:"Autoportrait d’Aitziber Orkolaga",lead:"Photographe. Je travaille sur de longues séries autour du paysage,\nde la mémoire et de l’intime.",photo:"Photo de couverture",pic:"Photo",bio:"Bio",contact:"Contact",
       titles:["Iñularre","Paulhe I","Plaketak"],pages:"pages",soldout:"épuisé",order:"Commander le livre",
       work:"Court texte sur le travail : de quoi il parle et combien de temps il a pris.",
       b1:"Aitziber Orkolaga (Donostia, 1975) est photographe. Elle travaille sur de longues séries autour du paysage, de la mémoire et de l’intime.",
@@ -195,7 +200,7 @@ body.scrolling main img,body.scrolling .gwrap{cursor:none}
       if(im){for(k=1;k<im.length;k++){var q=im[k].pg;extra+=q?'<div class="pg"'+(q.r?' style="--r:'+q.r+'"':'')+'><img loading="lazy" src="'+im[k].src+'" alt="'+im[k].alt[lang]+'" style="left:'+q.x+'%;top:'+q.y+'%;width:'+q.w+'%;height:'+q.h+'%"></div>':'<img loading="lazy" class="ph img'+(im[k].land?' land':'')+(im[k].half?' half':'')+'" src="'+im[k].src+'" alt="'+im[k].alt[lang]+'">';}n=Math.max(0,4-(im.length-1));}
       for(k=0;k<n;k++){extra+='<div class="ph tall" aria-hidden="true"></div>';}
       html='<h2>'+title+'</h2><div class="meta">'+(w.yearOnly?w.year:w.year+', '+w.pages+' '+t.pages+', '+w.fmt+(w.order?'':', '+t.soldout))+'</div>'+desc+
-           '<div class="gwrap"><div class="grid" role="region" tabindex="0" aria-label="'+title+'">'+first+extra+'</div><button type="button" class="arr l" aria-label="←"><svg viewBox="0 0 36 16"><path d="M35 8H1M8 1L1 8l7 7"/></svg></button><button type="button" class="arr r" aria-label="→"><svg viewBox="0 0 36 16"><path d="M1 8h34M28 1l7 7-7 7"/></svg></button></div>'+
+           (im?'<button type="button" class="cover"><img src="'+im[0].src+'" alt="'+im[0].alt[lang]+'"><span class="cv">'+t.view+' ('+im.length+') →</span></button>':'')+'<div class="gwrap'+(im?' closed':'')+'"><div class="grid" role="region" tabindex="0" aria-label="'+title+'">'+first+extra+'</div><button type="button" class="arr l" aria-label="←"><svg viewBox="0 0 36 16"><path d="M35 8H1M8 1L1 8l7 7"/></svg></button><button type="button" class="arr r" aria-label="→"><svg viewBox="0 0 36 16"><path d="M1 8h34M28 1l7 7-7 7"/></svg></button></div>'+
            (w.order?'<a class="order" target="_blank" rel="noopener" href="mailto:aitziber@puntu.eus?subject='+encodeURIComponent(title)+'">'+t.order+'</a>':'');
     }
     el.innerHTML=html;
@@ -205,7 +210,7 @@ body.scrolling main img,body.scrolling .gwrap{cursor:none}
       function step(d){var it=g.firstElementChild;g.scrollBy({left:d*(it?it.getBoundingClientRect().width+12:g.clientWidth/3),behavior:"smooth"});}
       bl.addEventListener("click",function(){step(-1);});br.addEventListener("click",function(){step(1);});
       g.addEventListener("scroll",function(){upd();wr.classList.add("moving");clearTimeout(mt);mt=setTimeout(function(){wr.classList.remove("moving");},800);},{passive:true});
-      upd();}
+      upd();var cv=el.querySelector('.cover');if(cv)cv.addEventListener('click',function(){cv.hidden=true;wr.classList.remove('closed');g.scrollLeft=0;upd();try{wr.scrollIntoView({block:'nearest'});}catch(x){}});}
   }
 
   function route(scroll){buildNav();draw();if(scroll)window.scrollTo(0,0);}
@@ -222,7 +227,7 @@ body.scrolling main img,body.scrolling .gwrap{cursor:none}
     var multi=set.length>1;document.getElementById("lbPrev").style.display=multi?"":"none";document.getElementById("lbNext").style.display=multi?"":"none";}
   function openLb(img){var box=img.closest(".grid,.hero")||img.parentNode;set=[].slice.call(box.querySelectorAll("img"));last=img;lb.classList.add("open");document.body.style.overflow="hidden";show(set.indexOf(img));document.getElementById("lbX").focus();}
   function closeLb(){lb.classList.remove("open");document.body.style.overflow="";lbImg.removeAttribute("src");if(last)last.focus&&last.focus();}
-  document.getElementById("content").addEventListener("click",function(e){var im=e.target.closest("img");if(im)openLb(im);});
+  document.getElementById("content").addEventListener("click",function(e){var im=e.target.closest("img");if(im&&!im.closest(".cover"))openLb(im);});
   document.getElementById("lbX").addEventListener("click",closeLb);
   document.getElementById("lbPrev").addEventListener("click",function(e){e.stopPropagation();show(cur-1);});
   document.getElementById("lbNext").addEventListener("click",function(e){e.stopPropagation();show(cur+1);});
