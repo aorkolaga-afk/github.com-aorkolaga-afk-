@@ -71,6 +71,7 @@ main{min-width:0}
 .pair img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover}
 h2{font-size:1.5rem;font-weight:700;margin:0 0 .25rem;line-height:1.35}
 .meta{color:var(--grey);font-size:.9375rem;margin-bottom:2rem}
+.meta.specs{font-size:.8125rem;line-height:1.6;margin:2.5rem 0 1rem}
 p{margin:0 0 1.25rem;max-width:36rem}
 dl{margin:2.5rem 0 0;display:grid;grid-template-columns:5rem 1fr;gap:.6rem 1rem;max-width:36rem}
 dt{color:var(--grey)}
@@ -216,9 +217,10 @@ body.scrolling main img,body.scrolling .gwrap{cursor:none}
       var extra="",n=4,k,d=DESC[w.id]&&(DESC[w.id][lang]||DESC[w.id].eu),desc=d?'<p><strong>'+d[0]+'</strong></p>'+d.slice(1).map(function(x){return '<p>'+x+'</p>';}).join(''):'';
       if(im){for(k=1;k<im.length;k++){var q=im[k].pg;extra+=q?'<div class="pg"'+(q.r?' style="--r:'+q.r+'"':'')+'><img loading="lazy" src="'+im[k].src+'" alt="'+im[k].alt[lang]+'" style="left:'+q.x+'%;top:'+q.y+'%;width:'+q.w+'%;height:'+q.h+'%"></div>':'<img loading="lazy" class="ph img'+(im[k].land?' land':'')+(im[k].sq?' sq':'')+(im[k].half?' half':'')+'" src="'+im[k].src+'" alt="'+im[k].alt[lang]+'">';}n=Math.max(0,4-(im.length-1));}
       for(k=0;k<n;k++){extra+='<div class="ph tall" aria-hidden="true"></div>';}
-      html='<h2>'+title+'</h2><div class="meta">'+(w.yearOnly?w.year:w.year+', '+w.pages+' '+t.pages+', '+w.fmt+(w.order?'':', '+t.soldout))+(SPECS[w.id]?'<br>'+SPECS[w.id][lang].join('<br>'):'')+'</div>'+desc+
+      var meta='<div class="meta specs">'+(w.yearOnly?w.year:w.year+', '+w.pages+' '+t.pages+', '+w.fmt+(w.order?'':', '+t.soldout))+(SPECS[w.id]?'<br>'+SPECS[w.id][lang].join('<br>'):'')+'</div>';
+      html='<h2>'+title+'</h2>'+desc+
            (im?'<button type="button" class="cover"><img src="'+(w.coverImg||im[w.cover||0]).src+'" alt="'+(w.coverImg||im[w.cover||0]).alt[lang]+'"><span class="cv">'+t.view+' ('+im.length+') →</span></button>':'')+'<div class="gwrap'+(im?' closed':'')+'"><div class="grid" role="region" tabindex="0" aria-label="'+title+'">'+first+extra+'</div><button type="button" class="arr l" aria-label="←"><svg viewBox="0 0 36 16"><path d="M35 8H1M8 1L1 8l7 7"/></svg></button><button type="button" class="arr r" aria-label="→"><svg viewBox="0 0 36 16"><path d="M1 8h34M28 1l7 7-7 7"/></svg></button></div>'+
-           (w.video?'<p class="links"><button type="button" class="vlink">'+t.vid+' ▶</button></p>':'')+(w.order?'<a class="order" target="_blank" rel="noopener" href="mailto:aitziber@puntu.eus?subject='+encodeURIComponent(title)+'">'+t.order+'</a>':'');
+           (w.video?'<p class="links"><button type="button" class="vlink">'+t.vid+' ▶</button></p>':'')+meta+(w.order?'<a class="order" target="_blank" rel="noopener" href="mailto:aitziber@puntu.eus?subject='+encodeURIComponent(title)+'">'+t.order+'</a>':'');
     }
     el.innerHTML=html;
 
